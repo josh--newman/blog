@@ -6,7 +6,12 @@
   "author": "Josh Newman <josh.newman4390@gmail.com>",
   "license": "MIT",
   "dependencies": {
-    "express": "^4.14.0"
+    "body-parser": "^1.15.2",
+    "express": "^4.14.0",
+    "graphql": "^0.8.2",
+    "graphql-server-express": "^0.4.3",
+    "graphql-tools": "^0.9.0",
+    "nodemon": "^1.11.0"
   },
   "scripts": {
     "start": "node index.js"
