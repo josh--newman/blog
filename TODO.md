@@ -20,3 +20,6 @@
 - [ ] Markdown editor
 - [ ] Edit/Delete posts
 - [ ] Publish/unpublish posts
+
+## Other
+- [ ] Write first blog post
