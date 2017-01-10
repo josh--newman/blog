@@ -1,3 +1,5 @@
+# Blog content management system
+
 ## Backend
 - [X] GraphQL basic setup
 - [ ] Hook up mongoDB
