@@ -14,7 +14,6 @@ app.get('/', (req, res) => {
 
 // Graphql setup
 const executableSchema = require('./graphql/data/schema');
-const resolvers = require('./graphql/data/schema.js');
 
 // -- graphql endpoint
 app.use('/api', bodyParser.json(), graphqlExpress({
