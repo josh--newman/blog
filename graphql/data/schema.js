@@ -1,18 +1,12 @@
+const co = require('co');
 const { makeExecutableSchema } = require('graphql-tools');
 const Post = require('./post');
-
-const posts = [
-  {id: 1,
-  title: 'Hello',
-  content: 'test',
-  views: 1,
-  createdAt: 'never',
-  updatedAt: 'never'}
-];
+const PostModel = require('../../models/post');
 
 const RootQuery = `
   type Query {
     posts: [Post]!
+    postById(id: ID!): Post!
   }
 
   type Mutation {
@@ -20,6 +14,16 @@ const RootQuery = `
       title: String!
       content: String!
     ): Post
+
+    updatePost(
+      id: ID!
+      title: String
+      content: String
+    ): Post
+
+    deletePost(id: ID!): Post
+    updateViews(id: ID!): Post
+    publishPost(id: ID!, publish: Boolean): Post
   }
 `;
 
@@ -32,20 +36,55 @@ const SchemaDefinitions = `
 
 const resolvers = {
   Query: {
-    posts(_, args, ctx, info) {
-      return posts;
+    posts(_, args) {
+      return PostModel.find({});
+    },
+    postById(_, args) {
+      return PostModel.findOne({ _id: args.id });
     }
   },
 
   Mutation: {
     createPost(_, { title, content }) {
-      const newPost = {
-        id: Math.ceil(Math.random() * 100),
+      const newPost = new PostModel({
         title,
         content
-      };
-      posts.push(newPost);
-      return newPost
+      });
+      return newPost.save();
+    },
+
+    updateViews(_, { id }) {
+      return PostModel.findById(id)
+        .then(post => {
+          post.views++;
+          return post.save();
+        });
+    },
+
+    updatePost(_, { id, title, content }) {
+      const fields = { title, content };
+
+      return PostModel.findById(id)
+        .then(post => {
+          Object.keys(fields).forEach(key => {
+            if (fields[key]) {
+              post[key] = fields[key];
+            }
+          });
+          return post.save();
+        });
+    },
+
+    deletePost(_, { id }) {
+      return PostModel.findOneAndRemove(id);
+    },
+
+    publishPost(_, { id, publish }) {
+      return PostModel.findById(id)
+        .then(post => {
+          post.published = publish;
+          return post.save();
+        });
     }
   }
 };

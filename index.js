@@ -1,9 +1,8 @@
+require('dotenv').config();
 const express = require('express');
-const bodyParser = require('body-parser');
-const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
-const path = require('path');
 const app = express();
+const bodyParser = require('body-parser');
+const path = require('path');
 
 app.use(express.static('public'));
 
@@ -12,13 +11,26 @@ app.get('/', (req, res) => {
   res.sendFile('index.html');
 });
 
+// MongoDB connection
+const mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+mongoose.connect('mongodb://localhost/blog');
+const db = mongoose.connection;
+db.on('error', (error) => {
+  throw new Error(error);
+});
+db.once('open', () => {
+  console.log('Connected to mongo.')
+});
+
 // Graphql setup
+const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
+const { makeExecutableSchema } = require('graphql-tools');
 const executableSchema = require('./graphql/data/schema');
 
 // -- graphql endpoint
 app.use('/api', bodyParser.json(), graphqlExpress({
-  schema: executableSchema,
-  context: {id: 'a context'}
+  schema: executableSchema
 }));
 
 // -- graphiql endpoint

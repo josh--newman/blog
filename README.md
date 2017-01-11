@@ -2,16 +2,18 @@
 
 ## Backend
 - [X] GraphQL basic setup
-- [ ] Hook up mongoDB
+- [X] Hook up mongoDB
+- [X] Set up .env
+- [X] Edit/delete posts
+- [X] Post views
+- [X] Publish/unpublish posts
 - [ ] Modularise schema
 - [ ] JWT support
 - [ ] Sign in/out route
-- [ ] SSL support
-- [ ] Post views
-- [ ] Publish/unpublish posts
-- [ ] Edit/delete posts
 - [ ] Dynamic routing
 - [ ] SEO / Server side rendering
+- [ ] SSL support
+- [ ] Continuous deployment
 
 ## Frontend
 - [ ] Boilerplate
