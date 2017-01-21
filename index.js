@@ -4,7 +4,6 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const jwt = require('express-jwt');
-const jwtMw = require('./middleware/jwt');
 
 app.use(express.static('public'));
 
@@ -34,10 +33,12 @@ const executableSchema = require('./graphql/data/schema');
 app.use(
   '/api',
   bodyParser.json(),
-  jwt({ secret: process.env.JWT_SECRET }),
+  jwt({
+    secret: process.env.JWT_SECRET,
+    credentialsRequired: false
+  }),
   graphqlExpress({ schema: executableSchema })
 );
-app.use(jwtMw);
 
 // -- graphiql endpoint
 app.use('/graphiql', require('./graphiql'));
