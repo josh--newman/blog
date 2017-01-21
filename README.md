@@ -9,7 +9,7 @@
 - [X] Publish/unpublish posts
 - [ ] Modularise schema
 - [X] JWT support
-- [ ] Auth on mutations
+- [X] Auth on mutations
 - [ ] Sign in/out route
 - [ ] Dynamic routing
 - [ ] SEO / Server side rendering
