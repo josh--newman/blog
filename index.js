@@ -4,6 +4,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
 const jwt = require('express-jwt');
+const jwtMw = require('./middleware/jwt');
 
 app.use(express.static('public'));
 
@@ -36,12 +37,10 @@ app.use(
   jwt({ secret: process.env.JWT_SECRET }),
   graphqlExpress({ schema: executableSchema })
 );
+app.use(jwtMw);
 
 // -- graphiql endpoint
 app.use('/graphiql', require('./graphiql'));
-// app.use('/graphiql', graphiqlExpress({
-//   endpointURL: '/api'
-// }));
 
 const PORT = process.env.PORT || 4444
 app.listen(PORT);
