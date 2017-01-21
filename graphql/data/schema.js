@@ -1,5 +1,5 @@
-const co = require('co');
 const { makeExecutableSchema } = require('graphql-tools');
+const { isAdmin } = require('./../auth');
 const Post = require('./post');
 const PostModel = require('../../models/post');
 
@@ -36,16 +36,17 @@ const SchemaDefinitions = `
 
 const resolvers = {
   Query: {
-    posts(_, args) {
+    posts(obj, args) {
       return PostModel.find({});
     },
-    postById(_, args) {
+    postById(obj, args) {
       return PostModel.findOne({ _id: args.id });
     }
   },
 
   Mutation: {
-    createPost(_, { title, content }) {
+    createPost(obj, { title, content }, context) {
+      isAdmin(context);
       const newPost = new PostModel({
         title,
         content
@@ -53,7 +54,7 @@ const resolvers = {
       return newPost.save();
     },
 
-    updateViews(_, { id }) {
+    updateViews(obj, { id }) {
       return PostModel.findById(id)
         .then(post => {
           post.views++;
@@ -61,7 +62,8 @@ const resolvers = {
         });
     },
 
-    updatePost(_, { id, title, content }) {
+    updatePost(obj, { id, title, content }, context) {
+      isAdmin(context);
       const fields = { title, content };
 
       return PostModel.findById(id)
@@ -75,11 +77,13 @@ const resolvers = {
         });
     },
 
-    deletePost(_, { id }) {
+    deletePost(obj, { id }, context) {
+      isAdmin(context);
       return PostModel.findOneAndRemove(id);
     },
 
-    publishPost(_, { id, publish }) {
+    publishPost(obj, { id, publish }, context) {
+      isAdmin(context);
       return PostModel.findById(id)
         .then(post => {
           post.published = publish;

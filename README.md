@@ -8,11 +8,12 @@
 - [X] Post views
 - [X] Publish/unpublish posts
 - [ ] Modularise schema
-- [ ] JWT support
+- [X] JWT support
+- [ ] Auth on mutations
 - [ ] Sign in/out route
 - [ ] Dynamic routing
 - [ ] SEO / Server side rendering
-- [ ] SSL support
+- [X] SSL support
 - [ ] Continuous deployment
 
 ## Frontend
@@ -27,3 +28,4 @@
 
 ## Other
 - [ ] Write first blog post
+- [ ] Eslint setup

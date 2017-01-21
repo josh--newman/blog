@@ -37,7 +37,10 @@ app.use(
     secret: process.env.JWT_SECRET,
     credentialsRequired: false
   }),
-  graphqlExpress({ schema: executableSchema })
+  graphqlExpress(req => ({
+    schema: executableSchema,
+    context: { user: req.user || {} }
+  }))
 );
 
 // -- graphiql endpoint
