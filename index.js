@@ -3,6 +3,7 @@ const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
 const path = require('path');
+const jwt = require('express-jwt');
 
 app.use(express.static('public'));
 
@@ -29,14 +30,18 @@ const { makeExecutableSchema } = require('graphql-tools');
 const executableSchema = require('./graphql/data/schema');
 
 // -- graphql endpoint
-app.use('/api', bodyParser.json(), graphqlExpress({
-  schema: executableSchema
-}));
+app.use(
+  '/api',
+  bodyParser.json(),
+  jwt({ secret: process.env.JWT_SECRET }),
+  graphqlExpress({ schema: executableSchema })
+);
 
 // -- graphiql endpoint
-app.use('/graphiql', graphiqlExpress({
-  endpointURL: '/api'
-}));
+app.use('/graphiql', require('./graphiql'));
+// app.use('/graphiql', graphiqlExpress({
+//   endpointURL: '/api'
+// }));
 
 const PORT = process.env.PORT || 4444
 app.listen(PORT);
