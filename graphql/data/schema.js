@@ -38,6 +38,10 @@ const RootQuery = `
       isAdmin: Boolean
     ): User
 
+    deleteUser(
+      email: String!
+    ): User
+
     generateToken(email: String!, password: String!): String!
   }
 `;
@@ -115,8 +119,7 @@ const resolvers = {
         if (isAdmin) { checkIsAdmin(context) }
 
         // Check if user with email already exists
-        const user = yield UserModel.findOne({ email });
-        console.log(user)
+        const user = yield UserModel.findOne({email});
         if (user) { throw errorObj({error: 'User already exists'}) }
 
         const hash = yield saltHashPassword(password);
@@ -128,6 +131,19 @@ const resolvers = {
         }).save();
 
         return newUser;
+      });
+    },
+
+    deleteUser(obj, { email }, context) {
+      return co(function*() {
+        // Only admins can delete users
+        checkIsAdmin(context);
+
+        // Check if user exists first
+        const user = yield UserModel.findOne({email});
+        if (!user) { throw errorObj({error: 'User doesn\'t exist'}) }
+
+        return UserModel.findOneAndRemove({email})
       });
     },
 
