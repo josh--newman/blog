@@ -20,12 +20,10 @@ const { DB_URL, DB_PORT, DB_NAME } = process.env;
 mongoose.connect(
   `mongodb://${DB_URL}${DB_PORT ? ':' + DB_PORT : ''}/${DB_NAME}`
 );
-
-const db = mongoose.connection;
-db.on('error', (error) => {
+mongoose.connection.on('error', (error) => {
   throw new Error(error);
 });
-db.once('open', () => {
+mongoose.connection.once('open', () => {
   console.log('Connected to mongo.')
 });
 
