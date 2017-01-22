@@ -8,7 +8,7 @@
 - [X] Post views
 - [X] Publish/unpublish posts
 - [X] User and issue token
-- [ ] Delete user
+- [X] Delete user
 - [ ] Modularise schema
 - [X] JWT support
 - [X] Auth on mutations
