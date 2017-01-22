@@ -15,7 +15,12 @@ app.get('/', (req, res) => {
 // MongoDB connection
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/blog');
+
+const { DB_URL, DB_PORT, DB_NAME } = process.env;
+mongoose.connect(
+  `mongodb://${DB_URL}${DB_PORT ? ':' + DB_PORT : ''}/${DB_NAME}`
+);
+
 const db = mongoose.connection;
 db.on('error', (error) => {
   throw new Error(error);
