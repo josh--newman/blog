@@ -27,7 +27,7 @@ db.once('open', () => {
 // Graphql setup
 const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
 const { makeExecutableSchema } = require('graphql-tools');
-const executableSchema = require('./graphql/data/schema');
+const executableSchema = require('./src/server/graphql/data/schema');
 
 // -- graphql endpoint
 app.use(
@@ -44,7 +44,7 @@ app.use(
 );
 
 // -- graphiql endpoint
-app.use('/graphiql', require('./graphiql'));
+app.use('/graphiql', require('./src/server/graphiql'));
 
 const PORT = process.env.PORT || 4444
 app.listen(PORT);
