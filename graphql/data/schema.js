@@ -1,12 +1,18 @@
+const co = require('co');
 const { makeExecutableSchema } = require('graphql-tools');
-const { isAdmin } = require('./../auth');
+const jwt = require('jsonwebtoken');
+const { checkIsAdmin, errorObj } = require('./../auth');
+const { saltHashPassword, confirmPassword } = require('./../../utils/password');
 const Post = require('./post');
 const PostModel = require('../../models/post');
+const User = require('./user');
+const UserModel = require('../../models/user');
 
 const RootQuery = `
   type Query {
     posts: [Post]!
     postById(id: ID!): Post!
+    userByEmail(email: String!): User
   }
 
   type Mutation {
@@ -24,6 +30,15 @@ const RootQuery = `
     deletePost(id: ID!): Post
     updateViews(id: ID!): Post
     publishPost(id: ID!, publish: Boolean): Post
+
+    createUser(
+      email: String!
+      password: String!
+      name: String!,
+      isAdmin: Boolean
+    ): User
+
+    generateToken(email: String!, password: String!): String!
   }
 `;
 
@@ -41,12 +56,15 @@ const resolvers = {
     },
     postById(obj, args) {
       return PostModel.findOne({ _id: args.id });
+    },
+    userByEmail(obj, { email }) {
+      return UserModel.findOne({email})
     }
   },
 
   Mutation: {
     createPost(obj, { title, content }, context) {
-      isAdmin(context);
+      checkIsAdmin(context);
       const newPost = new PostModel({
         title,
         content
@@ -63,7 +81,7 @@ const resolvers = {
     },
 
     updatePost(obj, { id, title, content }, context) {
-      isAdmin(context);
+      checkIsAdmin(context);
       const fields = { title, content };
 
       return PostModel.findById(id)
@@ -78,22 +96,65 @@ const resolvers = {
     },
 
     deletePost(obj, { id }, context) {
-      isAdmin(context);
+      checkIsAdmin(context);
       return PostModel.findOneAndRemove(id);
     },
 
     publishPost(obj, { id, publish }, context) {
-      isAdmin(context);
+      checkIsAdmin(context);
       return PostModel.findById(id)
         .then(post => {
           post.published = publish;
           return post.save();
         });
+    },
+
+    createUser(obj, { email, password, name, isAdmin }, context) {
+      return co(function*() {
+        // Don't allow a non-admin to create users
+        if (isAdmin) { checkIsAdmin(context) }
+
+        // Check if user with email already exists
+        const user = yield UserModel.findOne({ email });
+        console.log(user)
+        if (user) { throw errorObj({error: 'User already exists'}) }
+
+        const hash = yield saltHashPassword(password);
+        const newUser = new UserModel({
+          email,
+          password: hash,
+          name,
+          isAdmin
+        }).save();
+
+        return newUser;
+      });
+    },
+
+    generateToken(obj, { email, password }, context) {
+      const credsError = () => { return errorObj({error: 'Incorrect credentials'}) }
+
+      return co(function*() {
+        const user = yield UserModel.findOne({email});
+        if (!user) { return credsError() }
+
+        // Check if the found user's hash matches the password given
+        const validPassword = yield confirmPassword(password, user.password);
+        if (!validPassword) { return credsError() }
+
+        const payload = {
+          name: user.name,
+          email: user.email,
+          isAdmin: user.isAdmin
+        };
+
+        return jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '24h' });
+      });
     }
   }
 };
 
 module.exports = makeExecutableSchema({
-  typeDefs: [SchemaDefinitions, RootQuery, Post],
+  typeDefs: [SchemaDefinitions, RootQuery, Post, User],
   resolvers: resolvers
 });

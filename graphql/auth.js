@@ -2,7 +2,7 @@ const errorObj = (obj) => {
   return new Error(JSON.stringify(obj));
 }
 
-const isAdmin = ({ user }) => {
+const checkIsAdmin = ({ user }) => {
   const { isAdmin } = user;
   if (!isAdmin) {
     throw errorObj({error: 'Unauthorised'});
@@ -10,5 +10,5 @@ const isAdmin = ({ user }) => {
 }
 
 module.exports = {
-  isAdmin
+  checkIsAdmin, errorObj
 }
