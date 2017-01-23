@@ -12,6 +12,7 @@
 - [ ] Modularise schema
 - [X] JWT support
 - [X] Auth on mutations
+- [ ] Custom errors w/ formatError option
 - [ ] Add author field on post
 - [ ] Dynamic routing
 - [ ] SEO / Server side rendering
