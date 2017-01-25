@@ -20,7 +20,7 @@
 - [ ] Continuous deployment
 
 ## Frontend
-- [ ] Boilerplate
+- [X] Boilerplate
 - [ ] Apollo client
 - [ ] Home page
 - [ ] Sign in
