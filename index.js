@@ -2,7 +2,6 @@ require('dotenv').config();
 const express = require('express');
 const app = express();
 const bodyParser = require('body-parser');
-const path = require('path');
 const jwt = require('express-jwt');
 
 app.use(express.static('public'));
@@ -24,15 +23,11 @@ mongoose.connection.on('error', (error) => {
   throw new Error(error);
 });
 mongoose.connection.once('open', () => {
+  // eslint-disable-next-line no-console
   console.log('Connected to mongo.')
 });
 
 // Graphql setup
-const { graphqlExpress, graphiqlExpress } = require('graphql-server-express');
-const { makeExecutableSchema } = require('graphql-tools');
-const executableSchema = require('./src/server/graphql/data/schema');
-
-// -- graphql endpoint
 app.use(
   '/api',
   bodyParser.json(),
@@ -40,15 +35,13 @@ app.use(
     secret: process.env.JWT_SECRET,
     credentialsRequired: false
   }),
-  graphqlExpress(req => ({
-    schema: executableSchema,
-    context: { user: req.user || {} }
-  }))
+  require('./src/server/graphql')
 );
 
-// -- graphiql endpoint
+// Graphiql endpoint
 app.use('/graphiql', require('./src/server/graphiql'));
 
 const PORT = process.env.PORT || 4444
 app.listen(PORT);
+// eslint-disable-next-line no-console
 console.log(`API up on port ${PORT}`);
