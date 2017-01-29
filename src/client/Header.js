@@ -1,10 +1,14 @@
 import React from 'react';
-import './Header.css'
+import styles from './Header.css';
 
 class Header extends React.Component {
   render() {
-    <header>
-      <nav>This is a nav</nav>
-    </header>
+    return (
+      <header className={styles.header}>
+        <nav>This is a nav</nav>
+      </header>
+    );
   }
 }
+
+export default Header;
