@@ -29,7 +29,7 @@ mongoose.connection.once('open', () => {
 
 // Graphql setup
 app.use(
-  '/api',
+  '/graphql',
   bodyParser.json(),
   jwt({
     secret: process.env.JWT_SECRET,

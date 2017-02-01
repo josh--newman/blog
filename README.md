@@ -9,19 +9,19 @@
 - [X] Publish/unpublish posts
 - [X] User and issue token
 - [X] Delete user
-- [ ] Modularise schema
 - [X] JWT support
 - [X] Auth on mutations
 - [X] Custom errors w/ formatError option
+- [X] SSL support
+- [ ] Modularise schema
 - [ ] Add author field on post
 - [ ] Dynamic routing
 - [ ] SEO / Server side rendering
-- [X] SSL support
 - [ ] Continuous deployment
 
 ## Frontend
 - [X] Boilerplate
-- [ ] Apollo client
+- [X] Apollo client
 - [ ] Home page
 - [ ] Sign in
 - [ ] Admin portal

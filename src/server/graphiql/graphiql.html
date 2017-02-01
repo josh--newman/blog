@@ -81,7 +81,7 @@
           headers.Authorization = `Bearer ${currentJWT.value}`
         };
 
-        return fetch('/api', {
+        return fetch('/graphql', {
           method: 'post',
           headers: headers,
           body: JSON.stringify(graphQLParams),
