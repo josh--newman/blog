@@ -6,12 +6,34 @@ const jwt = require('express-jwt');
 
 app.use(express.static('public'));
 
-// Serve the front end app
-app.get('/', (req, res) => {
-  res.sendFile('index.html');
-});
+// ==================
+// Webpack middleware
+// ==================
+(function() {
+  const webpack = require('webpack');
+  const webpackConfig = require('./webpack.config');
+  const compiler = webpack(webpackConfig);
 
+  app.use(require('webpack-dev-middleware')(compiler, {
+    noInfo: true, publicPath: webpackConfig.output.publicPath
+  }));
+
+  app.use(require('webpack-hot-middleware')(compiler, {
+    // eslint-disable-next-line no-console
+    log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
+  }))
+
+  // ==================
+  // Frontend route
+  // ==================
+  app.get('/', (req, res) => {
+    res.sendFile('index.html');
+  });
+})();
+
+// ==================
 // MongoDB connection
+// ==================
 const mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
 
@@ -27,7 +49,10 @@ mongoose.connection.once('open', () => {
   console.log('Connected to mongo.')
 });
 
-// Graphql setup
+
+// ==================
+// GraphQL setup
+// ==================
 app.use(
   '/graphql',
   bodyParser.json(),
@@ -38,7 +63,9 @@ app.use(
   require('./src/server/graphql')
 );
 
-// Graphiql endpoint
+// ==================
+// GraphiQL setup
+// ==================
 app.use('/graphiql', require('./src/server/graphiql'));
 
 const PORT = process.env.PORT || 4444

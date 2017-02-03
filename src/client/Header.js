@@ -5,7 +5,7 @@ class Header extends React.Component {
   render() {
     return (
       <header className={styles.header}>
-        <nav>This is a nav</nav>
+        <nav>This is nice</nav>
       </header>
     );
   }
