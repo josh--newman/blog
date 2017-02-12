@@ -2,3 +2,19 @@ html, body {
   margin: 0;
   padding: 0;
 }
+
+body {
+  font-family: "Lato", "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif;
+  font-weight: 200;
+}
+
+a:link,
+a:visited {
+  color: #DE6B5F;
+  text-decoration: none;
+}
+
+a:hover,
+a:active {
+  color: grey;
+}

@@ -1,8 +1,8 @@
 import React from 'react';
+import SideBar from './SideBar';
+import MainContent from './MainContent';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import styles from './App.css';
-import Header from './Header';
 
 const PostsQuery = gql`{
   posts {
@@ -13,12 +13,16 @@ const PostsQuery = gql`{
 }
 `;
 
+const styles = {
+  display: 'flex'
+};
+
 class App extends React.Component {
   render() {
-    console.log(this.props)
     return (
-      <div>
-        <Header />
+      <div style={styles}>
+        <SideBar />
+        <MainContent />
       </div>
     );
   }
