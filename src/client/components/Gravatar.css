@@ -1,0 +1,8 @@
+.logo {
+  display: flex;
+}
+
+.logo img {
+  margin: 0 auto;
+  border-radius: 5em;
+}

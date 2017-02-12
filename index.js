@@ -1,10 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const app = express();
+const morgan = require('morgan');
 const bodyParser = require('body-parser');
 const jwt = require('express-jwt');
 
-app.use(express.static('public'));
+app.use(morgan('tiny'));
+app.use(express.static(`${__dirname}/public`));
 
 // ==================
 // Webpack middleware
@@ -26,8 +28,8 @@ app.use(express.static('public'));
   // ==================
   // Frontend route
   // ==================
-  app.get('/', (req, res) => {
-    res.sendFile('index.html');
+  app.get('*', (req, res) => {
+    res.sendFile('index.html', { root: `${__dirname}/public` });
   });
 })();
 

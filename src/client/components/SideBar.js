@@ -1,5 +1,6 @@
 import React from 'react';
 import styles from './SideBar.css';
+import Gravatar from './Gravatar';
 
 class SideBar extends React.Component {
   static defaultProps = {
@@ -26,9 +27,7 @@ class SideBar extends React.Component {
     const { links, withBio } = this.props;
     return (
       <aside className={styles.sidebar}>
-        <div className={styles.logo}>
-          <img src="https://www.gravatar.com/avatar/7498173568bea2faec3c6907e906628b"/>
-        </div>
+        <Gravatar />
         { withBio &&
           <div>
             <div className={styles.about}>

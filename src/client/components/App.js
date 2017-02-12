@@ -1,24 +1,19 @@
 import React from 'react';
-import SideBar from './SideBar';
-import MainContent from './MainContent';
-
-const styles = {
-  display: 'flex',
-  maxWidth: '1280px'
-};
-
-const links = [
-  { href: '#', label: 'About this blog' },
-  { href: '#', label: '12PPM challenge' }
-];
+import { Router, Route, browserHistory } from 'react-router';
+import Home from './Home';
+import Post from './Post';
+import Admin from './Admin';
+import SignIn from './SignIn';
 
 class App extends React.Component {
   render() {
     return (
-      <div style={styles}>
-        <SideBar links={links} withBio />
-        <MainContent />
-      </div>
+      <Router history={browserHistory}>
+        <Route path='/' component={Home} />
+        <Route path='/signin' component={SignIn} />
+        <Route path='/post/:postId' component={Post} />
+        <Route path='/admin' component={Admin} />
+      </Router>
     );
   }
 }
