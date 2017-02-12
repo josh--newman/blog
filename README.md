@@ -22,7 +22,7 @@
 ## Frontend
 - [X] Boilerplate
 - [X] Apollo client
-- [ ] Home page
+- [X] Home page
 - [ ] Sign in
 - [ ] Admin portal
 - [ ] Markdown editor
