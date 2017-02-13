@@ -1,6 +1,7 @@
 const User = `
   type User {
-    name: String!
+    firstName: String!
+    lastName: String!
     email: String!
     isAdmin: Boolean
     createdAt: String

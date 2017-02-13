@@ -34,7 +34,8 @@ const RootQuery = `
     createUser(
       email: String!
       password: String!
-      name: String!,
+      firstName: String!,
+      lastName: String!,
       isAdmin: Boolean
     ): User
 
@@ -113,7 +114,7 @@ const resolvers = {
         });
     },
 
-    createUser(obj, { email, password, name, isAdmin }, context) {
+    createUser(obj, { email, password, firstName, lastName, isAdmin }, context) {
       return co(function*() {
         // Don't allow a non-admin to create users
         if (isAdmin) { checkIsAdmin(context) }
@@ -126,7 +127,8 @@ const resolvers = {
         const newUser = new UserModel({
           email,
           password: hash,
-          name,
+          firstName,
+          lastName,
           isAdmin
         }).save();
 
@@ -159,7 +161,8 @@ const resolvers = {
         if (!validPassword) { return credsError() }
 
         const payload = {
-          name: user.name,
+          firstName: user.firstName,
+          lastName: user.lastName,
           email: user.email,
           isAdmin: user.isAdmin
         };
