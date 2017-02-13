@@ -13,6 +13,12 @@ const authAdmin = (nextState, replace) => {
       return replace('/');
     }
   }
+  else {
+    if (nextState.location.pathname === '/signin') {
+      // redirect to admin route because they're already authenticated
+      return replace('/admin');
+    }
+  }
 }
 
 class App extends React.Component {
