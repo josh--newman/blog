@@ -1,0 +1,39 @@
+/* Credit: https://codepen.io/tomhazledine/pen/BKrXwJ */
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.hourglass {
+  background: #DE6B5F;
+  margin: 3em auto;
+  width: 2em;
+  height: 4em;
+  box-shadow: inset #DE6B5F 0 0 0 0, inset white 0 2em 0 0, inset #DE6B5F 0 0 4em 0;
+  animation: hourglass 1s linear infinite;
+}
+
+.outer {
+  fill: #DE6B5F;
+}
+
+.middle {
+  fill: white;
+}
+
+@keyframes hourglass {
+  0% {
+    transform: rotate(0deg);
+    box-shadow: inset white 0 0 0 0, inset #DE6B5F 0 2em 0 0, inset white 0 4em 0 0, inset #DE6B5F 0 4em 0 0;
+  }
+  80% {
+    transform: rotate(0deg);
+    box-shadow: inset white 0 2em 0 0, inset #DE6B5F 0 2em 0 0, inset white 0 2em 0 0, inset #DE6B5F 0 4em 0 0;
+  }
+  100% {
+    transform: rotate(180deg);
+    box-shadow: inset white 0 2em 0 0, inset #DE6B5F 0 2em 0 0, inset white 0 2em 0 0, inset #DE6B5F 0 4em 0 0;
+  }
+}
