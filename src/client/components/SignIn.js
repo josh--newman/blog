@@ -15,6 +15,9 @@ class SignIn extends React.Component {
   state = { email: '', password: '', loading: false };
 
   static propTypes = {
+    // Provided by react router
+    router: React.PropTypes.object,
+    // Provided by apollo client
     mutate: React.PropTypes.func
   }
 
@@ -26,7 +29,7 @@ class SignIn extends React.Component {
     this.props.mutate({ variables })
       .then(res => {
         const jwt = res.data.generateToken;
-        document.cookie = `jwt=${jwt}`
+        document.cookie = `jwt=${jwt};path=/`
         this.setState({ loading: false });
         this.props.router.push('/admin');
       }, err => {
@@ -41,7 +44,6 @@ class SignIn extends React.Component {
   }
 
   render() {
-    console.log(this.props)
     const { email, password, loading, error } = this.state;
     return (
       <div>

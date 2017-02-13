@@ -1,0 +1,9 @@
+.container {
+  display: flex;
+}
+
+.mainContent {
+  flex: 4;
+  height: 100vh;
+  padding: 2em;
+}

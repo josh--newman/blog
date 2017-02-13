@@ -1,10 +1,11 @@
 import React from 'react';
+import { Link } from 'react-router';
 import SideBar from './SideBar';
 import MainContent from './MainContent';
 
 const links = [
-  { href: '#', label: 'About this blog' },
-  { href: '#', label: '12PPM challenge' }
+  <Link key='about' to='/'>About this blog</Link>,
+  <Link key='12ppm' to='/'>12PPM challenge</Link>
 ];
 
 const styles = {
