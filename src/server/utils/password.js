@@ -1,7 +1,7 @@
 const { hash, compare } = require('bcrypt');
 
 const saltHashPassword = (password) => {
-  return hash(password, 10);
+  return hash(password, 5);
 }
 
 const confirmPassword = (password, hash) => {

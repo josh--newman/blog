@@ -1,7 +1,7 @@
 .container {
   display: flex;
   flex-direction: column;
-  width: 15em;
+  max-width: 18em;
   margin: 2em auto;
 }
 
@@ -28,5 +28,10 @@
   border: none;
   font-size: 1em;
   outline: none;
-  /*border-radius: 1em;*/
+}
+
+.error {
+  font-size: 0.8em;
+  text-align: center;
+  color: red;
 }

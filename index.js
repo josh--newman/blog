@@ -25,12 +25,6 @@ app.use(express.static(`${__dirname}/public`));
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
   }))
 
-  // ==================
-  // Frontend route
-  // ==================
-  app.get('*', (req, res) => {
-    res.sendFile('index.html', { root: `${__dirname}/public` });
-  });
 })();
 
 // ==================
@@ -69,6 +63,13 @@ app.use(
 // GraphiQL setup
 // ==================
 app.use('/graphiql', require('./src/server/graphiql'));
+
+// ==================
+// Frontend route
+// ==================
+app.get('*', (req, res) => {
+  res.sendFile('index.html', { root: `${__dirname}/public` });
+});
 
 const PORT = process.env.PORT || 4444
 app.listen(PORT);
