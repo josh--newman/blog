@@ -9,7 +9,9 @@ import { PostList, EditPost } from './Posts';
 
 const authAdmin = (nextState, replace) => {
   if (!validateUser()) {
-    return replace('/');
+    if (nextState.location.pathname !== '/signin') {
+      return replace('/');
+    }
   }
 }
 
@@ -18,7 +20,7 @@ class App extends React.Component {
     return (
       <Router history={browserHistory}>
         <Route path='/' component={Home} />
-        <Route path='/signin' component={SignIn} />
+        <Route path='/signin' onEnter={authAdmin} component={SignIn} />
         <Route path='/post/:postId' component={Post} />
         <Route path='/admin' onEnter={authAdmin} component={Admin}>
           <IndexRoute component={PostList} />
