@@ -6,7 +6,7 @@ const SideBar = ({ links, withBio, user }) => {
   return (
     <aside className={styles.sidebar}>
       <Gravatar />
-      { user && <h3>Hey, {user.name}</h3> }
+      { user && <h3>Hey, {user.firstName}.</h3> }
       { withBio &&
         <div>
           <div className={styles.about}>

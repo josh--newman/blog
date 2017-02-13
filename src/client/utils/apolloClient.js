@@ -6,7 +6,11 @@ const applyMiddleware = (req, next) => {
   if (!req.options.headers) {
     req.options.headers = {};
   }
-  req.options.headers.authorization = `Bearer ${getCookie('jwt')}`;
+
+  const jwt = getCookie('jwt');
+  if (jwt) {
+    req.options.headers.authorization = `Bearer ${jwt}`;
+  }
   next();
 }
 

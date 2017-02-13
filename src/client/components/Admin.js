@@ -1,11 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router';
-import { getUser } from '../utils/cookies';
+import { getUser, logout } from '../utils/cookies';
 import Sidebar from './SideBar';
 import styles from './Admin.css';
 
 const links = [
-  <Link key='newPost' to='/admin/new'>Create post</Link>
+  <Link key='newPost' to='/admin/new'>Create post</Link>,
+  <a key='logout' href='/' onClick={logout.bind(this)}>Log out</a>
 ]
 
 class Admin extends React.Component {

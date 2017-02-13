@@ -2,6 +2,7 @@
   flex: 1;
   height: 100vh;
   padding: 2em;
+  text-align: center;
 }
 
 .nav ul {
@@ -11,4 +12,8 @@
 
 .nav li {
   margin-bottom: 0.5em;
+}
+
+.about {
+  text-align: left;
 }
