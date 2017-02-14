@@ -18,7 +18,7 @@ class Admin extends React.Component {
   render() {
     return (
       <div className={styles.container}>
-        <Sidebar user={getUser()} links={links} />
+        <Sidebar withCollapse user={getUser()} links={links} />
         <div className={styles.mainContent}>
           {this.props.children}
         </div>

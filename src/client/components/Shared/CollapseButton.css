@@ -1,0 +1,32 @@
+.container {
+  /*background: #BADa55;*/
+  width: 1em;
+  height: 1em;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+.container div {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background: lightgrey;
+  transition: transform 0.3s ease-out;
+}
+
+.line1Open {
+  transform: rotate(-45deg);
+}
+
+.line2Open {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.line1Closed {
+  transform: rotate(45deg);
+}
+
+.line2Closed {
+  transform: translateY(6px) rotate(-45deg);
+}
