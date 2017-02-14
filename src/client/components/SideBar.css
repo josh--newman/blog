@@ -8,8 +8,7 @@
 }
 
 .sidebarHidden {
-  transform: translateX(-80%);
-  display: none;
+  transform: translateX(-75%);
 }
 
 .nav ul {
