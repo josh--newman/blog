@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  margin-bottom: 2em;
+}
+
+.detailsBox, .actionsBox {
+  font-size: 0.8em;
+  display: flex;
+  flex-direction: row;
+}
+
+.detail {
+  padding-right: 1em;
+}
+
+.detail:nth-last-child(n+2) {  
+  border-right: 1px solid darkgrey;
+}
+
+.detail:nth-child(n+2) {
+  padding-left: 1em;
+}
+
+.actionsBox {
+  margin-top: 1em;
+}
+
+.buttonContainer {
+  margin-right: 1em;
+}
+
+.published {
+  background-color: #4EB14D;
+  color: white;
+}
+
+.unpublished {
+  background-color: #D64842;
+  color: white;
+}

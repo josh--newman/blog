@@ -5,6 +5,7 @@ import { SideBar } from './Shared';
 import styles from './Admin.css';
 
 const links = [
+  <Link key='all' to='/admin'>All posts</Link>,
   <Link key='newPost' to='/admin/new'>Create post</Link>,
   <a key='logout' href='/' onClick={logout.bind(this)}>Log out</a>
 ]
@@ -20,7 +21,9 @@ class Admin extends React.Component {
       <div className={styles.container}>
         <SideBar withCollapse user={getUser()} links={links} />
         <div className={styles.mainContent}>
-          {this.props.children}
+          {this.props.children && React.cloneElement(this.props.children, {
+            adminView: true
+          })}
         </div>
       </div>
     );

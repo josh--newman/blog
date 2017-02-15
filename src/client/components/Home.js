@@ -5,7 +5,8 @@ import MainContent from './MainContent';
 
 const links = [
   <Link key='about' to='/'>About this blog</Link>,
-  <Link key='12ppm' to='/'>12PPM challenge</Link>
+  <Link key='12ppm' to='/'>12PPM challenge</Link>,
+  <Link key='admin' to='/signin'>Sign in</Link>
 ];
 
 const styles = {
