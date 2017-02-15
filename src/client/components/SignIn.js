@@ -21,7 +21,10 @@ class SignIn extends React.Component {
     mutate: React.PropTypes.func
   }
 
-  authenticate() {
+  authenticate(event) {
+    event.preventDefault();
+    event.stopPropagation();
+
     const { email, password } = this.state;
     const variables = { email, password };
 
@@ -52,25 +55,25 @@ class SignIn extends React.Component {
           <Gravatar />
           <h1>Sign in</h1>
           { error && <p className={styles.error}>{error}</p> }
-          <input
-            name="email"
-            className={styles.input}
-            type="text"
-            placeholder="Email"
-            value={email}
-            onChange={this.onChange.bind(this)}
-          />
-          <input
-            name="password"
-            className={styles.input}
-            type="password"
-            placeholder="Password"
-            value={password}
-            onChange={this.onChange.bind(this)}
-          />
-          <button className={styles.button} onClick={this.authenticate.bind(this)}>
-            Go
-          </button>
+          <form onSubmit={this.authenticate.bind(this)}>
+            <input
+              name="email"
+              className={styles.input}
+              type="text"
+              placeholder="Email"
+              value={email}
+              onChange={this.onChange.bind(this)}
+            />
+            <input
+              name="password"
+              className={styles.input}
+              type="password"
+              placeholder="Password"
+              value={password}
+              onChange={this.onChange.bind(this)}
+            />
+            <button type="submit" className={styles.button}>Go</button>
+          </form>
         </section>
       }
     </div>
