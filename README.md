@@ -23,11 +23,15 @@
 - [X] Boilerplate
 - [X] Apollo client
 - [X] Home page
-- [ ] Sign in
-- [ ] Admin portal
+  - [ ] Post previews
+  - [ ] Post detail page
+- [X] Sign in
+- [X] Admin portal
 - [ ] Markdown editor
+- [ ] Create posts
 - [ ] Edit/Delete posts
 - [ ] Publish/unpublish posts
+- [ ] ++ view count
 
 ## Other
 - [ ] Write first blog post
