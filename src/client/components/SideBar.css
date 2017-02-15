@@ -4,11 +4,11 @@
   padding: 2em;
   text-align: center;
   position: relative;
-  transition: transform 0.5s ease-out;
+  transition: margin-left 0.5s ease-out;
 }
 
 .sidebarHidden {
-  transform: translateX(-75%);
+  margin-left: -23%;
 }
 
 .nav ul {
