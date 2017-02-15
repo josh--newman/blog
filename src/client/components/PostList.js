@@ -1,7 +1,7 @@
 import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
-import Loading from './Loading';
+import { Loading } from './Shared';
 import PostPreview from './PostPreview';
 
 const PostsQuery = gql`{

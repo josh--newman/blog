@@ -2,7 +2,7 @@ import React from 'react';
 import cx from 'classnames';
 import styles from './SideBar.css';
 import Gravatar from './Gravatar';
-import CollapseButton from './Shared/CollapseButton';
+import CollapseButton from './CollapseButton';
 
 class SideBar extends React.Component {
   state = { sidebarVisible: true }

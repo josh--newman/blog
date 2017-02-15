@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router';
 import { getUser, logout } from '../utils/cookies';
-import Sidebar from './SideBar';
+import { SideBar } from './Shared';
 import styles from './Admin.css';
 
 const links = [
@@ -18,7 +18,7 @@ class Admin extends React.Component {
   render() {
     return (
       <div className={styles.container}>
-        <Sidebar withCollapse user={getUser()} links={links} />
+        <SideBar withCollapse user={getUser()} links={links} />
         <div className={styles.mainContent}>
           {this.props.children}
         </div>

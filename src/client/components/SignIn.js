@@ -2,8 +2,8 @@ import React from 'react';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import styles from './SignIn.css';
-import Gravatar from './Gravatar';
-import Loading from './Loading';
+import { Gravatar } from './Shared';
+import { Loading } from './Shared';
 
 const authenticate = gql`
   mutation authenticate($email: String!, $password: String!) {

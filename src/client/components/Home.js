@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router';
-import SideBar from './SideBar';
+import { SideBar } from './Shared';
 import MainContent from './MainContent';
 
 const links = [
