@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './MainContent.css';
-import PostList from './PostList';
+import { PostList } from './Posts';
 
 class MainContent extends React.Component {
   render() {
