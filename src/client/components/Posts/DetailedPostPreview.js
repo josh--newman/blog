@@ -3,8 +3,9 @@ import cx from 'classnames';
 import moment from 'moment';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
+
 import styles from './DetailedPostPreview.css';
-import { Button } from '../Shared';
+import { Button, Modal } from '../Shared';
 
 const deletePost = gql`
   mutation deletePost($postId: ID!) {
@@ -43,6 +44,7 @@ class DetailedPostPreview extends React.Component {
     });
 
     const viewsText = `${views} view${views === 0 || views > 1 ? 's' : ''}`;
+    const publishText = published ? 'unpublish' : 'publish';
 
     return (
       <div className={styles.container}>
@@ -55,13 +57,17 @@ class DetailedPostPreview extends React.Component {
         </div>
         <div className={styles.actionsBox}>
           <div className={styles.buttonContainer}>
-            <Button primary onClick={() => {console.log('editing')}}>Edit</Button>
+              <Button primary onClick={() => {console.log('editing')}}>Edit</Button>
           </div>
           <div className={styles.buttonContainer}>
-            <Button secondary onClick={deletePost.bind(this, id)}>Delete</Button>
+            <Modal action='delete'>
+              <Button secondary onClick={deletePost.bind(this, id)}>Delete</Button>
+            </Modal>
           </div>
           <div className={styles.buttonContainer}>
-            <Button style={publishedStatus}>{ published ? 'Unpublish' : 'Publish' }</Button>
+            <Modal action={publishText}>
+              <Button onClick={() => {}} style={publishedStatus}>{ published ? 'Unpublish' : 'Publish' }</Button>
+            </Modal>
           </div>
         </div>
       </div>

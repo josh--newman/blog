@@ -1,0 +1,25 @@
+.overlay {
+  position: fixed;
+  left: 0;
+  top: 0;
+  background: rgba(240, 240, 240, .85);
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+
+.content {
+  outline: none;
+  width: 10em;
+  background-color: white;
+  margin: 0 auto;
+  border: 1px solid lightgrey;
+  text-align: center;
+  padding-bottom: 1em;
+
+}
+
+.content button {
+  margin: 1em;
+}
