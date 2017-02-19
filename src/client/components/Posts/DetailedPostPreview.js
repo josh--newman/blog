@@ -5,6 +5,14 @@ import styles from './DetailedPostPreview.css';
 import { Button } from '../Shared';
 
 class DetailedPostPreview extends React.Component {
+  static propTypes = {
+    title: React.PropTypes.string.isRequired,
+    content: React.PropTypes.string.isRequired,
+    published: React.PropTypes.bool.isRequired,
+    createdAt: React.PropTypes.string.isRequired,
+    updatedAt: React.PropTypes.string.isRequired,
+    views: React.PropTypes.number.isRequired
+  }
 
   render() {
     const { title, content, published, createdAt, updatedAt, views } = this.props;
