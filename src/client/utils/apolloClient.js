@@ -16,6 +16,15 @@ const applyMiddleware = (req, next) => {
 
 networkInterface.use([{applyMiddleware}])
 
+const dataIdFromObject = (result) => {
+  if (result.id && result.__typename) {
+    return `${result.__typename}${result.id}`
+  }
+
+  return null;
+}
+
 export default new ApolloClient({
-  networkInterface
+  networkInterface,
+  dataIdFromObject
 });

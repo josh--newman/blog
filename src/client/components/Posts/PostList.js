@@ -5,7 +5,8 @@ import { Loading } from '../Shared';
 import DetailedPostPreview from './DetailedPostPreview';
 import PostPreview from './PostPreview';
 
-const PostsQuery = gql`{
+const PostsQuery = gql`
+query PostList {
   posts {
     id
     title
