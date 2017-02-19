@@ -6,6 +6,15 @@ import styles from './Modal.css';
 class Modal extends React.Component {
   state = { open: false, }
 
+  static propTypes = {
+    children: React.PropTypes.shape({
+      props: React.PropTypes.shape({
+        onClick: React.PropTypes.func.isRequired
+      })
+    }),
+    action: React.PropTypes.string.isRequired
+  }
+
   onChildClick() {
     this.setState({ open: true });
   }
@@ -26,7 +35,6 @@ class Modal extends React.Component {
 
   render() {
     const { children, action } = this.props;
-    const { open } = this.state;
 
     return (
       <div>
@@ -34,7 +42,7 @@ class Modal extends React.Component {
         <ReactModal
           className={styles.content}
           overlayClassName={styles.overlay}
-          isOpen={open}
+          isOpen={this.state.open}
           onRequestClose={this.onCancel.bind(this)}
         contentLabel='Confirm action'
         >
