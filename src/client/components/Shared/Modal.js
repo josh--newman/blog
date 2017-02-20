@@ -47,7 +47,7 @@ class Modal extends React.Component {
         contentLabel='Confirm action'
         >
           <div className={styles.innerContent}>
-            <h3>{`Are you sure you want to ${action}?`}</h3>
+            <p>{`Are you sure you want to ${action}?`}</p>
             <Button primary onClick={this.onActionClick.bind(this)}>Yes</Button>
             <Button secondary onClick={this.onCancel.bind(this)}>Cancel</Button>
           </div>

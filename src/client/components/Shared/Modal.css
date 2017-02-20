@@ -16,8 +16,7 @@
   margin: 0 auto;
   border: 1px solid lightgrey;
   text-align: center;
-  padding-bottom: 1em;
-
+  padding: 1em;
 }
 
 .content button {
