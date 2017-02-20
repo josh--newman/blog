@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import moment from 'moment';
+import { withRouter } from 'react-router';
 import { decorate } from 'value-pipeline';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
@@ -29,8 +30,13 @@ class DetailedPostPreview extends React.Component {
     createdAt: React.PropTypes.string.isRequired,
     updatedAt: React.PropTypes.string.isRequired,
     views: React.PropTypes.number.isRequired,
+    // Provided by graphql
     deletePost: React.PropTypes.func.isRequired,
-    publishPost: React.PropTypes.func.isRequired
+    publishPost: React.PropTypes.func.isRequired,
+    // Provided by react-router
+    router: React.PropTypes.shape({
+      push: React.PropTypes.func.isRequired
+    })
   }
 
   render() {
@@ -43,7 +49,8 @@ class DetailedPostPreview extends React.Component {
       updatedAt,
       views,
       deletePost,
-      publishPost
+      publishPost,
+      router
     } = this.props;
 
 
@@ -66,7 +73,7 @@ class DetailedPostPreview extends React.Component {
         </div>
         <div className={styles.actionsBox}>
           <div className={styles.buttonContainer}>
-              <Button primary onClick={() => {console.log('editing')}}>Edit</Button>
+            <Button primary onClick={router.push.bind(this, `/admin/edit/${id}`)}>Edit</Button>
           </div>
           <div className={styles.buttonContainer}>
             <Modal action='delete'>
@@ -117,5 +124,6 @@ const withPublishPost = graphql(publishPost, {
 export default decorate(
   withDeletePost,
   withPublishPost,
+  withRouter,
   DetailedPostPreview
 );

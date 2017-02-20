@@ -1,0 +1,21 @@
+.container {
+  display: flex;
+  flex-direction: column;
+}
+
+.editor {
+}
+
+/* Preview styles */
+.previewContainer {
+  margin-top: 1em;
+}
+
+.previewContainer span {
+  text-transform: uppercase;
+  font-size: 0.8em;
+  text-decoration: underline;
+}
+
+.preview {
+}
