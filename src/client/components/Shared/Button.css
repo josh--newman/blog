@@ -2,6 +2,7 @@ button {
   border: none;
   padding: 0.5em 1em;
   color: white;
+  outline: none;
 }
 
 .primary {

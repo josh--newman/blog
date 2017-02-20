@@ -1,6 +1,7 @@
 import React from 'react';
 import cx from 'classnames';
 import moment from 'moment';
+import { decorate } from 'value-pipeline';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 
@@ -13,6 +14,12 @@ const deletePost = gql`
   }
 `;
 
+const publishPost = gql`
+  mutation publishPost($postId: ID!, $publish: Boolean) {
+    publishPost(id: $postId, publish: $publish) { id, published }
+  }
+`;
+
 class DetailedPostPreview extends React.Component {
   static propTypes = {
     id: React.PropTypes.string.isRequired,
@@ -22,7 +29,8 @@ class DetailedPostPreview extends React.Component {
     createdAt: React.PropTypes.string.isRequired,
     updatedAt: React.PropTypes.string.isRequired,
     views: React.PropTypes.number.isRequired,
-    deletePost: React.PropTypes.func.isRequired
+    deletePost: React.PropTypes.func.isRequired,
+    publishPost: React.PropTypes.func.isRequired
   }
 
   render() {
@@ -34,7 +42,8 @@ class DetailedPostPreview extends React.Component {
       createdAt,
       updatedAt,
       views,
-      deletePost
+      deletePost,
+      publishPost
     } = this.props;
 
 
@@ -66,7 +75,12 @@ class DetailedPostPreview extends React.Component {
           </div>
           <div className={styles.buttonContainer}>
             <Modal action={publishText}>
-              <Button onClick={() => {}} style={publishedStatus}>{ published ? 'Unpublish' : 'Publish' }</Button>
+              <Button
+                onClick={publishPost.bind(this, id, !published)}
+                style={publishedStatus}
+              >
+                { published ? 'Unpublish' : 'Publish' }
+              </Button>
             </Modal>
           </div>
         </div>
@@ -75,9 +89,10 @@ class DetailedPostPreview extends React.Component {
   }
 }
 
-export default graphql(deletePost, {
-  props: ({ mutate }) => ({
-    deletePost: (postId) => mutate({
+const withDeletePost = graphql(deletePost, {
+  name: 'deletePostMutation',
+  props: ({ deletePostMutation }) => ({
+    deletePost: (postId) => deletePostMutation({
       variables: { postId },
       updateQueries: {
         PostList: (prev, {mutationResult}) => {
@@ -88,4 +103,19 @@ export default graphql(deletePost, {
       }
     })
   })
-})(DetailedPostPreview);
+});
+
+const withPublishPost = graphql(publishPost, {
+  name: 'publishPostMutation',
+  props: ({ publishPostMutation }) => ({
+    publishPost: (postId, publish) => publishPostMutation({
+      variables: { postId, publish }
+    })
+  })
+});
+
+export default decorate(
+  withDeletePost,
+  withPublishPost,
+  DetailedPostPreview
+);
