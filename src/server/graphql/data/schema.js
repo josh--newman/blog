@@ -96,6 +96,8 @@ const resolvers = {
               post[key] = fields[key];
             }
           });
+          // Updated updatedAt
+          post.updatedAt = Date.now();
           return post.save();
         });
     },
