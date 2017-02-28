@@ -77,7 +77,7 @@ class DetailedPostPreview extends React.Component {
           </div>
           <div className={styles.buttonContainer}>
             <Modal action='delete'>
-              <Button secondary onClick={deletePost.bind(this, id)}>Delete</Button>
+              <Button secondary onClick={() => {deletePost(id)}}>Delete</Button>
             </Modal>
           </div>
           <div className={styles.buttonContainer}>

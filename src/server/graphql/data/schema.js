@@ -104,7 +104,7 @@ const resolvers = {
 
     deletePost(obj, { id }, context) {
       checkIsAdmin(context);
-      return PostModel.findOneAndRemove(id);
+      return PostModel.findOneAndRemove({_id: id});
     },
 
     publishPost(obj, { id, publish }, context) {

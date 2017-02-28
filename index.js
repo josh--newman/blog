@@ -23,7 +23,7 @@ app.use(express.static(`${__dirname}/public`));
   app.use(require('webpack-hot-middleware')(compiler, {
     // eslint-disable-next-line no-console
     log: console.log, path: '/__webpack_hmr', heartbeat: 10 * 1000
-  }))
+  }));
 
 })();
 
