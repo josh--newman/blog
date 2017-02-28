@@ -1,4 +1,5 @@
 import React from 'react';
+import { withRouter } from 'react-router';
 import { graphql } from 'react-apollo';
 import gql from 'graphql-tag';
 import { decorate } from 'value-pipeline';
@@ -46,6 +47,9 @@ class EditPost extends React.Component {
     params: React.PropTypes.shape({
       postId: React.PropTypes.string
     }),
+    router: React.PropTypes.shape({
+      push: React.PropTypes.func.isRequired
+    }),
     // Provided by apollo-client
     data: React.PropTypes.shape({
       loading: React.PropTypes.bool,
@@ -75,12 +79,11 @@ class EditPost extends React.Component {
 
     // If there's a postId, update the post
     // otherwise create a new one
-    if (postId) {
-      return updatePost(postId, title, content);
-    }
-    else {
-      return createPost(title, content);
-    }
+    if (postId) { updatePost(postId, title, content); }
+    else { createPost(title, content); }
+
+    // Go back to post list
+    this.props.router.push('/admin');
   }
 
   render() {
@@ -114,7 +117,7 @@ const withGetPost = graphql(getPost, {
   skip: (ownProps) => !ownProps.params.postId,
   options: (ownProps) => {
     const { postId } = ownProps.params;
-    return { variables: {postId} };
+    return { variables: {postId}, forceFetch: true };
   }
 });
 
@@ -140,5 +143,6 @@ export default decorate(
   withGetPost,
   withCreatePost,
   withUpdatePost,
+  withRouter,
   EditPost
 );

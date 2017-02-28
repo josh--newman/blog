@@ -62,4 +62,6 @@ class PostList extends React.Component {
   }
 }
 
-export default graphql(PostsQuery)(PostList);
+export default graphql(PostsQuery, {
+  options: {forceFetch: true}
+})(PostList);
